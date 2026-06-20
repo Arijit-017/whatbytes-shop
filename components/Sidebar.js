@@ -1,58 +1,96 @@
+"use client";
+
+import { X } from "lucide-react";
 import { categories, brands } from "../data/products";
 
-export default function Sidebar({ filters, onFilterChange }) {
+export default function Sidebar({
+  filters,
+  onFilterChange,
+  isOpen,
+  closeSidebar,
+}) {
   const { category, maxPrice, brand } = filters;
 
   const handleCategory = (cat) => {
-    onFilterChange({ ...filters, category: cat });
+    onFilterChange({
+      ...filters,
+      category: cat,
+    });
+
+    closeSidebar();
   };
 
   const handlePrice = (e) => {
-    onFilterChange({ ...filters, maxPrice: Number(e.target.value) });
+    onFilterChange({
+      ...filters,
+      maxPrice: Number(e.target.value),
+    });
   };
 
-  const handleBrand = (b) => {
-    onFilterChange({ ...filters, brand: b });
+  const handleBrand = (value) => {
+    onFilterChange({
+      ...filters,
+      brand: value,
+    });
   };
 
   return (
-    <aside className="w-full md:w-64 shrink-0">
-      <div className="bg-white border border-gray-200 rounded-lg p-5 sticky top-20">
-        <h2 className="font-bold text-brand text-lg mb-4">Filters</h2>
+    <>
+      {isOpen && (
+        <div
+          onClick={closeSidebar}
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        />
+      )}
 
-        {/* Category */}
-        <div className="mb-6">
-          <h3 className="font-semibold text-gray-800 mb-3">Category</h3>
-          <div className="space-y-2">
+      <aside
+        className={`
+          fixed lg:static
+          top-0 left-0
+          h-screen lg:h-auto
+          w-72 lg:w-64
+          bg-white
+          z-50 lg:z-auto
+          p-6
+          shadow-xl lg:shadow-none
+          transition-transform duration-300
+          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+        `}
+      >
+        <div className="lg:hidden flex justify-between items-center mb-6">
+          <h2 className="font-bold text-2xl text-brand">Filters</h2>
+
+          <button onClick={closeSidebar}>
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        <h2 className="hidden lg:block font-bold text-2xl text-brand mb-6">
+          Filters
+        </h2>
+
+        <div className="mb-8">
+          <h3 className="font-semibold text-lg mb-4">Category</h3>
+
+          <div className="space-y-3">
             {categories.map((cat) => (
-              <label
-                key={cat}
-                className="flex items-center gap-2 cursor-pointer group"
-              >
+              <label key={cat} className="flex items-center gap-3">
                 <input
                   type="radio"
                   name="category"
                   checked={category === cat}
                   onChange={() => handleCategory(cat)}
-                  className="accent-brand w-4 h-4 cursor-pointer"
                 />
-                <span
-                  className={`text-sm transition-colors ${
-                    category === cat
-                      ? "text-brand font-medium"
-                      : "text-gray-600 group-hover:text-gray-900"
-                  }`}
-                >
-                  {cat}
-                </span>
+
+                <span>{cat}</span>
               </label>
             ))}
           </div>
         </div>
 
-        {/* Price Range */}
-        <div className="mb-6">
-          <h3 className="font-semibold text-gray-800 mb-3">Price</h3>
+        <div className="mb-8">
+          <h3 className="font-semibold text-lg mb-4">Price</h3>
+
           <input
             type="range"
             min={0}
@@ -62,20 +100,23 @@ export default function Sidebar({ filters, onFilterChange }) {
             onChange={handlePrice}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
+
+          <div className="flex justify-between text-sm mt-2">
             <span>0</span>
-            <span className="font-medium text-brand">${maxPrice}</span>
+
+            <span>${maxPrice}</span>
+
             <span>1000</span>
           </div>
         </div>
 
-        {/* Brand */}
         <div>
-          <h3 className="font-semibold text-gray-800 mb-3">Brand</h3>
+          <h3 className="font-semibold text-lg mb-4">Brand</h3>
+
           <select
             value={brand}
             onChange={(e) => handleBrand(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand text-gray-700"
+            className="w-full border rounded-lg px-3 py-2"
           >
             {brands.map((b) => (
               <option key={b} value={b}>
@@ -84,7 +125,7 @@ export default function Sidebar({ filters, onFilterChange }) {
             ))}
           </select>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }

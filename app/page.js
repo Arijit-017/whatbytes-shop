@@ -22,11 +22,11 @@ export default function Home() {
     brand: "All",
   });
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   useEffect(() => {
     const category = searchParams.get("category");
-
     const price = searchParams.get("price");
-
     const brand = searchParams.get("brand");
 
     setFilters({
@@ -85,11 +85,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Header />
+      <Header openSidebar={() => setSidebarOpen(true)} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="flex flex-col md:flex-row gap-6">
-          <Sidebar filters={filters} onFilterChange={handleFilterChange} />
+          <Sidebar
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            isOpen={sidebarOpen}
+            closeSidebar={() => setSidebarOpen(false)}
+          />
 
           <section className="flex-1 min-w-0">
             <div className="mb-8">
