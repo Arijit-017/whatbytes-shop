@@ -65,7 +65,7 @@ export default function ProductDetail({ params }) {
 
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-0">
-            <div className="relative bg-gray-50 flex items-center justify-center p-4 sm:p-6 md:p-8 min-h-[250px] sm:min-h-[320px]">
+            <div className="relative bg-gray-50 flex items-center justify-center p-4 sm:p-6 md:p-8 min-h-62.5 sm:min-h-80">
               <div className="relative w-full h-56 sm:h-72 md:h-80">
                 <Image
                   src={product.image}
