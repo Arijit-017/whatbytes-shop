@@ -1,8 +1,19 @@
 # 🛍️ WhatBytes Shop
 
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![React](https://img.shields.io/badge/React-19-blue)
+![Deployment](https://img.shields.io/badge/Deployment-Vercel-black)
+![Status](https://img.shields.io/badge/Status-Live-success)
+
 A modern, responsive, and scalable e-commerce web application developed as a technical assignment for the **Frontend Developer Intern role at WhatBytes**.
 
 The project demonstrates frontend engineering skills by implementing a complete shopping experience using modern Next.js architecture, API integration, dynamic routing, reusable components, and cart management.
+
+## 🌐 Live Demo
+
+🚀 **Live Application:** [https://whatbytes-shop.vercel.app/](https://whatbytes-shop.vercel.app/)
+
+📂 **GitHub Repository:** [https://github.com/Arijit-017/whatbytes-shop](https://github.com/Arijit-017/whatbytes-shop)
 
 ---
 
