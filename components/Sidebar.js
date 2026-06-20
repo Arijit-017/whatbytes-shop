@@ -1,4 +1,4 @@
-import { categories, brands } from '../data/products';
+import { categories, brands } from "../data/products";
 
 export default function Sidebar({ filters, onFilterChange }) {
   const { category, maxPrice, brand } = filters;
@@ -25,7 +25,10 @@ export default function Sidebar({ filters, onFilterChange }) {
           <h3 className="font-semibold text-gray-800 mb-3">Category</h3>
           <div className="space-y-2">
             {categories.map((cat) => (
-              <label key={cat} className="flex items-center gap-2 cursor-pointer group">
+              <label
+                key={cat}
+                className="flex items-center gap-2 cursor-pointer group"
+              >
                 <input
                   type="radio"
                   name="category"
@@ -36,8 +39,8 @@ export default function Sidebar({ filters, onFilterChange }) {
                 <span
                   className={`text-sm transition-colors ${
                     category === cat
-                      ? 'text-brand font-medium'
-                      : 'text-gray-600 group-hover:text-gray-900'
+                      ? "text-brand font-medium"
+                      : "text-gray-600 group-hover:text-gray-900"
                   }`}
                 >
                   {cat}

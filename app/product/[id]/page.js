@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
-import { Star, ShoppingCart, ArrowLeft, Plus, Minus } from 'lucide-react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import ProductCard from '../../components/ProductCard';
-import { products } from '../../data/products';
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { Star, ShoppingCart, ArrowLeft, Plus, Minus } from "lucide-react";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import ProductCard from "../../components/ProductCard";
+import { products } from "../../data/products";
 
 export default function ProductDetail({ product, related }) {
   const [quantity, setQuantity] = useState(1);
@@ -16,8 +16,12 @@ export default function ProductDetail({ product, related }) {
         <Header />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-700 mb-4">Product not found</h2>
-            <Link href="/" className="text-brand hover:underline">← Back to products</Link>
+            <h2 className="text-2xl font-bold text-gray-700 mb-4">
+              Product not found
+            </h2>
+            <Link href="/" className="text-brand hover:underline">
+              ← Back to products
+            </Link>
           </div>
         </main>
         <Footer />
@@ -27,12 +31,14 @@ export default function ProductDetail({ product, related }) {
 
   return (
     <>
-
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
 
         <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-          <Link href="/" className="inline-flex items-center gap-1 text-brand hover:underline text-sm mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-brand hover:underline text-sm mb-6"
+          >
             <ArrowLeft className="w-4 h-4" />
             Back to products
           </Link>
@@ -55,7 +61,9 @@ export default function ProductDetail({ product, related }) {
 
               {/* Details */}
               <div className="p-8 flex flex-col">
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.title}</h1>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                  {product.title}
+                </h1>
 
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex">
@@ -64,29 +72,39 @@ export default function ProductDetail({ product, related }) {
                         key={i}
                         className={`w-5 h-5 ${
                           i < Math.round(product.rating)
-                            ? 'text-yellow-400 fill-yellow-400'
-                            : 'text-gray-200 fill-gray-200'
+                            ? "text-yellow-400 fill-yellow-400"
+                            : "text-gray-200 fill-gray-200"
                         }`}
                       />
                     ))}
                   </div>
-                  <span className="text-sm text-gray-500">({product.reviews} reviews)</span>
+                  <span className="text-sm text-gray-500">
+                    ({product.reviews} reviews)
+                  </span>
                 </div>
 
-                <p className="text-3xl font-bold text-gray-900 mb-4">${product.price}</p>
+                <p className="text-3xl font-bold text-gray-900 mb-4">
+                  ${product.price}
+                </p>
 
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {product.description}
                 </p>
 
                 <div className="mb-6">
-                  <span className="text-sm text-gray-500 font-medium">Category</span>
-                  <p className="text-gray-800 font-semibold">{product.category}</p>
+                  <span className="text-sm text-gray-500 font-medium">
+                    Category
+                  </span>
+                  <p className="text-gray-800 font-semibold">
+                    {product.category}
+                  </p>
                 </div>
 
                 {/* Quantity */}
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="text-sm font-medium text-gray-700">Quantity:</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    Quantity:
+                  </span>
                   <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
                     <button
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -117,7 +135,9 @@ export default function ProductDetail({ product, related }) {
           {/* Related Products */}
           {related.length > 0 && (
             <div className="mt-12">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Related Products</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Related Products
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {related.map((p) => (
                   <ProductCard key={p.id} product={p} />
@@ -141,7 +161,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const product = products.find((p) => String(p.id) === params.id) || null;
   const related = product
-    ? products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3)
+    ? products
+        .filter((p) => p.category === product.category && p.id !== product.id)
+        .slice(0, 3)
     : [];
   return { props: { product, related } };
 }

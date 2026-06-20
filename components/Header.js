@@ -1,21 +1,19 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Search } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import Link from "next/link";
+import { Search, ShoppingCart, ShoppingBag } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
   const router = useRouter();
-
   const searchParams = useSearchParams();
-
-  const [searchValue, setSearchValue] = useState('');
+  const { cartCount } = useCart();
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    const search = searchParams.get('search') || '';
-
-    setSearchValue(search);
+    setSearchValue(searchParams.get("search") || "");
   }, [searchParams]);
 
   const handleSearch = (e) => {
@@ -23,55 +21,57 @@ export default function Header() {
 
     setSearchValue(value);
 
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
+    const params = new URLSearchParams(searchParams.toString());
 
     if (value.trim()) {
-      params.set('search', value);
+      params.set("search", value);
     } else {
-      params.delete('search');
+      params.delete("search");
     }
 
     router.push(`/?${params.toString()}`);
   };
 
   return (
-    <header className="bg-brand sticky top-0 z-50 shadow-md">
+    <header className="sticky top-0 z-50 bg-brand shadow-lg">
+      <div className="max-w-7xl mx-auto h-20 px-6 flex items-center gap-8">
+        {/* Logo */}
 
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-3 text-white shrink-0">
+          <ShoppingBag className="w-8 h-8" />
 
-        <Link
-          href="/"
-          className="text-white font-bold text-2xl tracking-tight shrink-0"
-        >
-
-          Logo
-
+          <span className="font-bold text-3xl">WhatBytes</span>
         </Link>
 
-        <div className="flex-1 max-w-xl mx-auto relative">
+        {/* Search */}
 
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"
-          />
+        <div className="flex-1 max-w-3xl relative">
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
 
           <input
             type="text"
-
-            placeholder="Search for products..."
-
+            placeholder="Search products..."
             value={searchValue}
-
             onChange={handleSearch}
-
-            className="w-full pl-10 pr-4 py-2 rounded-md text-sm outline-none focus:ring-2 focus:ring-white/40 bg-white text-gray-800 placeholder:text-gray-400"
+            className="w-full h-14 pl-14 pr-6 rounded-full border-0 outline-none bg-white text-gray-800 text-lg shadow-sm focus:ring-4 focus:ring-blue-300"
           />
-
         </div>
 
-      </div>
+        {/* Cart */}
 
+        <Link
+          href="/cart"
+          className="relative flex items-center justify-center w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-200"
+        >
+          <ShoppingCart className="w-8 h-8 text-white" />
+
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 min-w-6 h-6 px-1 rounded-full text-xs font-bold flex items-center justify-center text-white">
+              {cartCount}
+            </span>
+          )}
+        </Link>
+      </div>
     </header>
   );
 }
