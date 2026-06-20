@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -85,7 +86,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Header openSidebar={() => setSidebarOpen(true)} />
+      <Suspense fallback={null}>
+        <Header openSidebar={() => setSidebarOpen(true)} />
+      </Suspense>
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="flex flex-col md:flex-row gap-6">

@@ -34,7 +34,7 @@ export default function Header({ openSidebar }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-blue-700 to-blue-600 shadow-md">
+    <header className="sticky top-0 z-50 bg-linear-to-r from-blue-700 to-blue-600 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
         {/* Left Section */}
 

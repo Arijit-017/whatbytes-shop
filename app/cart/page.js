@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +16,9 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Header />
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-8">
         <Link
